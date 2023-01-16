@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 //This Task is the interface
 import {Task} from '../../Task';
-//This TASKS is the mocked data
-import {TASKS} from '../../mock-tasks';
+import { TaskService } from '../../services/task.service';
+
 
 @Component({
   selector: 'app-tasks',
@@ -11,10 +11,12 @@ import {TASKS} from '../../mock-tasks';
 })
 export class TasksComponent implements OnInit {
 
-  tasks: Task[] = TASKS;
+  tasks: Task[] = [];
 
-  constructor() {}
+  constructor(private taskService: TaskService) {}
 
-  ngOnInit(): void{}
+  ngOnInit(): void{
+    this.taskService.getTasks().subscribe((tasks) => this.tasks = tasks);
+  }
 
 }
